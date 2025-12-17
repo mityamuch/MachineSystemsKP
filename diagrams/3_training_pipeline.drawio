@@ -1,158 +1,154 @@
-<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="Mozilla/5.0" version="22.1.0" type="device">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.2.7">
   <diagram name="Training Pipeline" id="training-pipeline">
-    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+    <mxGraphModel dx="938" dy="523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        
-        <!-- Title -->
-        <mxCell id="title" value="Архитектура Training Pipeline" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="400" y="20" width="400" height="30" as="geometry" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" value="Архитектура Training Pipeline" vertex="1">
+          <mxGeometry height="30" width="400" x="400" y="20" as="geometry" />
         </mxCell>
-        
-        <!-- Data Input -->
-        <mxCell id="data-group" value="Данные" style="swimlane;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="70" width="140" height="140" as="geometry" />
+        <mxCell id="data-group" parent="1" style="swimlane;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Данные" vertex="1">
+          <mxGeometry height="140" width="140" x="40" y="70" as="geometry" />
         </mxCell>
-        <mxCell id="feature-store" value="Feature Store&#xa;(S3 + Parquet)&#xa;90 дней" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="data-group">
-          <mxGeometry x="20" y="35" width="100" height="60" as="geometry" />
+        <mxCell id="feature-store" parent="data-group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Feature Store&#xa;(S3 + Parquet)&#xa;90 дней" vertex="1">
+          <mxGeometry height="60" width="100" x="20" y="35" as="geometry" />
         </mxCell>
-        <mxCell id="labels" value="Auto Labels&#xa;(gap values)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="data-group">
-          <mxGeometry x="20" y="100" width="100" height="30" as="geometry" />
+        <mxCell id="labels" parent="data-group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Авторазметка&lt;br&gt;(gap values)" vertex="1">
+          <mxGeometry height="30" width="100" x="20" y="100" as="geometry" />
         </mxCell>
-        
-        <!-- Triggers -->
-        <mxCell id="trigger-group" value="Триггеры" style="swimlane;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="240" width="140" height="180" as="geometry" />
+        <mxCell id="trigger-group" parent="1" style="swimlane;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" value="Триггеры" vertex="1">
+          <mxGeometry height="180" width="140" x="40" y="240" as="geometry" />
         </mxCell>
-        <mxCell id="trigger-schedule" value="⏰ Schedule&#xa;(ежедневно 3:00)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="trigger-group">
-          <mxGeometry x="15" y="35" width="110" height="40" as="geometry" />
+        <mxCell id="trigger-schedule" parent="trigger-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Schedule&lt;br&gt;(ежедневно 3:00)" vertex="1">
+          <mxGeometry height="40" width="110" x="15" y="35" as="geometry" />
         </mxCell>
-        <mxCell id="trigger-drift" value="📊 Data Drift&#xa;(PSI &gt; 0.2)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="trigger-group">
-          <mxGeometry x="15" y="85" width="110" height="40" as="geometry" />
+        <mxCell id="trigger-drift" parent="trigger-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Data Drift&lt;br&gt;(PSI &amp;gt; 0.2)" vertex="1">
+          <mxGeometry height="40" width="110" x="15" y="85" as="geometry" />
         </mxCell>
-        <mxCell id="trigger-manual" value="👤 Manual&#xa;(Git commit)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="trigger-group">
-          <mxGeometry x="15" y="135" width="110" height="40" as="geometry" />
+        <mxCell id="trigger-manual" parent="trigger-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Ручные&lt;br&gt;(Git commit)" vertex="1">
+          <mxGeometry height="40" width="110" x="15" y="135" as="geometry" />
         </mxCell>
-        
-        <!-- TFT Training -->
-        <mxCell id="tft-group" value="Уровень 1: TFT (Ежедневно)" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="240" y="70" width="360" height="170" as="geometry" />
+        <mxCell id="tft-group" parent="1" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Уровень 1: TFT (Ежедневно)" vertex="1">
+          <mxGeometry height="170" width="360" x="240" y="70" as="geometry" />
         </mxCell>
-        <mxCell id="tft-prep" value="Data Prep&#xa;• Split 70/15/15&#xa;• Normalize&#xa;• Time windows" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="tft-group">
-          <mxGeometry x="15" y="35" width="90" height="70" as="geometry" />
+        <mxCell id="tft-prep" parent="tft-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Data Prep&#xa;• Split 70/15/15&#xa;• Normalize&#xa;• Time windows" vertex="1">
+          <mxGeometry height="70" width="90" x="15" y="35" as="geometry" />
         </mxCell>
-        <mxCell id="tft-train" value="🖥️ GPU Training&#xa;(NVIDIA T4/A100)&#xa;• PyTorch&#xa;• Early stopping" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="tft-group">
-          <mxGeometry x="120" y="35" width="100" height="70" as="geometry" />
+        <mxCell id="tft-train" parent="tft-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="🖥️ GPU Training&lt;br&gt;(NVIDIA T4/A100)&lt;br&gt;• Early stopping" vertex="1">
+          <mxGeometry height="70" width="100" x="120" y="35" as="geometry" />
         </mxCell>
-        <mxCell id="tft-val" value="Validation&#xa;• MAE&#xa;• RMSE&#xa;• MAPE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="tft-group">
-          <mxGeometry x="235" y="35" width="80" height="70" as="geometry" />
+        <mxCell id="tft-val" parent="tft-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Validation&#xa;• MAE&#xa;• RMSE&#xa;• MAPE" vertex="1">
+          <mxGeometry height="70" width="80" x="235" y="35" as="geometry" />
         </mxCell>
-        <mxCell id="tft-time" value="⏱️ ~2-4 часа" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="tft-group">
-          <mxGeometry x="120" y="115" width="100" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="tft-arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="tft-group" source="tft-prep" target="tft-train">
+        <mxCell id="tft-arrow1" edge="1" parent="tft-group" source="tft-prep" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="tft-train">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="tft-arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="tft-group" source="tft-train" target="tft-val">
+        <mxCell id="tft-arrow2" edge="1" parent="tft-group" source="tft-train" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="tft-val">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        
-        <!-- LightGBM Training -->
-        <mxCell id="lgbm-group" value="Уровень 2: LightGBM (Каждые 30-60 мин)" style="swimlane;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="240" y="260" width="360" height="170" as="geometry" />
+        <mxCell id="39ILy9l3MEM9CvODZIMj-1" parent="tft-group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;span style=&quot;font-size: 10px; text-wrap-mode: nowrap;&quot;&gt;~2-4 часа&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="100" x="130" y="120" as="geometry" />
         </mxCell>
-        <mxCell id="lgbm-prep" value="Data Prep&#xa;• Last 24-48h&#xa;• Lag features&#xa;• Fast aggregates" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="lgbm-group">
-          <mxGeometry x="15" y="35" width="90" height="70" as="geometry" />
+        <mxCell id="lgbm-group" parent="1" style="swimlane;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="Уровень 2: LightGBM (Каждые 30-60 мин)" vertex="1">
+          <mxGeometry height="170" width="360" x="240" y="260" as="geometry" />
         </mxCell>
-        <mxCell id="lgbm-train" value="💻 CPU Training&#xa;• Warm-start&#xa;• Incremental&#xa;• Fast iteration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lgbm-group">
-          <mxGeometry x="120" y="35" width="100" height="70" as="geometry" />
+        <mxCell id="lgbm-prep" parent="lgbm-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Data Prep&#xa;• Last 24-48h&#xa;• Lag features&#xa;• Fast aggregates" vertex="1">
+          <mxGeometry height="70" width="90" x="15" y="35" as="geometry" />
         </mxCell>
-        <mxCell id="lgbm-val" value="A/B Test&#xa;• Shadow mode&#xa;• 10% traffic&#xa;• Compare" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="lgbm-group">
-          <mxGeometry x="235" y="35" width="80" height="70" as="geometry" />
+        <mxCell id="lgbm-train" parent="lgbm-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="CPU Training&lt;br&gt;• Warm-start&lt;br&gt;• Incremental&lt;br&gt;• Fast iteration" vertex="1">
+          <mxGeometry height="70" width="100" x="120" y="35" as="geometry" />
         </mxCell>
-        <mxCell id="lgbm-time" value="⏱️ ~2-5 минут" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="lgbm-group">
-          <mxGeometry x="120" y="115" width="100" height="20" as="geometry" />
+        <mxCell id="lgbm-val" parent="lgbm-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="A/B Test&lt;br&gt;• Shadow mode&lt;br&gt;• 10% traffic" vertex="1">
+          <mxGeometry height="70" width="80" x="235" y="35" as="geometry" />
         </mxCell>
-        <mxCell id="lgbm-arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="lgbm-group" source="lgbm-prep" target="lgbm-train">
+        <mxCell id="lgbm-arrow1" edge="1" parent="lgbm-group" source="lgbm-prep" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="lgbm-train">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="lgbm-arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="lgbm-group" source="lgbm-train" target="lgbm-val">
+        <mxCell id="lgbm-arrow2" edge="1" parent="lgbm-group" source="lgbm-train" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="lgbm-val">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        
-        <!-- Model Management -->
-        <mxCell id="model-group" value="Model Management" style="swimlane;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="660" y="70" width="180" height="170" as="geometry" />
+        <mxCell id="39ILy9l3MEM9CvODZIMj-2" parent="lgbm-group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;span style=&quot;font-size: 10px; text-wrap-mode: nowrap;&quot;&gt;&amp;nbsp;~2-5 минут&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="100" x="120" y="120" as="geometry" />
         </mxCell>
-        <mxCell id="mlflow" value="MLflow&#xa;Model Registry" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="model-group">
-          <mxGeometry x="30" y="35" width="120" height="40" as="geometry" />
+        <mxCell id="model-group" parent="1" style="swimlane;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" value="Model Management" vertex="1">
+          <mxGeometry height="170" width="180" x="660" y="70" as="geometry" />
         </mxCell>
-        <mxCell id="versioning" value="• Version control&#xa;• Metrics logging&#xa;• Artifacts storage&#xa;• Stage: Staging→Prod" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=10;" vertex="1" parent="model-group">
-          <mxGeometry x="30" y="85" width="130" height="60" as="geometry" />
+        <mxCell id="mlflow" parent="model-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="MLflow&#xa;Model Registry" vertex="1">
+          <mxGeometry height="40" width="120" x="30" y="35" as="geometry" />
         </mxCell>
-        
-        <!-- Drift Detection -->
-        <mxCell id="drift-group" value="Drift Detection" style="swimlane;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="660" y="260" width="180" height="170" as="geometry" />
+        <mxCell id="39ILy9l3MEM9CvODZIMj-6" parent="model-group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;• Версионирование&lt;/span&gt;&lt;br style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;• Логирование метрик&lt;/span&gt;&lt;br style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;• Stage: Staging→Prod&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="120" x="30" y="90" as="geometry" />
         </mxCell>
-        <mxCell id="evidently" value="Evidently AI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="drift-group">
-          <mxGeometry x="30" y="35" width="120" height="35" as="geometry" />
+        <mxCell id="drift-group" parent="1" style="swimlane;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" value="Drift Detection" vertex="1">
+          <mxGeometry height="170" width="180" x="660" y="260" as="geometry" />
         </mxCell>
-        <mxCell id="drift-metrics" value="Data Drift:&#xa;• PSI (features)&#xa;• KS-test&#xa;• JSD" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=10;" vertex="1" parent="drift-group">
-          <mxGeometry x="20" y="80" width="70" height="60" as="geometry" />
+        <mxCell id="evidently" parent="drift-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" value="Evidently AI" vertex="1">
+          <mxGeometry height="35" width="120" x="30" y="35" as="geometry" />
         </mxCell>
-        <mxCell id="drift-action" value="Action:&#xa;• Alert&#xa;• Retrain&#xa;• Log" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=10;" vertex="1" parent="drift-group">
-          <mxGeometry x="100" y="80" width="60" height="60" as="geometry" />
+        <mxCell id="39ILy9l3MEM9CvODZIMj-3" parent="drift-group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;Data Drift:&lt;/span&gt;&lt;br style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;• PSI (features)&lt;/span&gt;&lt;br style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;• KS-test&lt;/span&gt;&lt;br style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;• JSD&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="70" x="10" y="80" as="geometry" />
         </mxCell>
-        
-        <!-- Deploy -->
-        <mxCell id="deploy-group" value="Deployment" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="900" y="140" width="180" height="220" as="geometry" />
+        <mxCell id="39ILy9l3MEM9CvODZIMj-4" parent="drift-group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;Действия:&lt;/span&gt;&lt;br style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;• Alert&lt;/span&gt;&lt;br style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;• Retrain&lt;/span&gt;&lt;br style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: nowrap;&quot;&gt;• Log&lt;/span&gt;" vertex="1">
+          <mxGeometry height="70" width="70" x="100" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="docker" value="🐳 Docker&#xa;Package Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="deploy-group">
-          <mxGeometry x="30" y="35" width="120" height="40" as="geometry" />
+        <mxCell id="deploy-group" parent="1" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Deployment" vertex="1">
+          <mxGeometry height="150" width="180" x="900" y="140" as="geometry" />
         </mxCell>
-        <mxCell id="k8s" value="☸️ Kubernetes&#xa;Deploy to Pods" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="deploy-group">
-          <mxGeometry x="30" y="90" width="120" height="40" as="geometry" />
+        <mxCell id="docker" parent="deploy-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="🐳 Docker&#xa;Package Model" vertex="1">
+          <mxGeometry height="40" width="120" x="30" y="35" as="geometry" />
         </mxCell>
-        <mxCell id="canary" value="🐤 Canary&#xa;5-10% traffic test" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="deploy-group">
-          <mxGeometry x="30" y="145" width="120" height="40" as="geometry" />
+        <mxCell id="k8s" parent="deploy-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="☸️ Kubernetes&#xa;Deploy to Pods" vertex="1">
+          <mxGeometry height="40" width="120" x="30" y="90" as="geometry" />
         </mxCell>
-        <mxCell id="deploy-arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="deploy-group" source="docker" target="k8s">
+        <mxCell id="deploy-arrow1" edge="1" parent="deploy-group" source="docker" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="k8s">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="deploy-arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="deploy-group" source="k8s" target="canary">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        
-        <!-- Main Arrows -->
-        <mxCell id="main1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="feature-store" target="tft-prep">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="main2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="feature-store" target="lgbm-prep">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="main3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="tft-val" target="mlflow">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="main4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="lgbm-val" target="mlflow">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="main5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="mlflow" target="docker">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="main6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" edge="1" parent="1" source="evidently" target="trigger-drift">
+        <mxCell id="main1" edge="1" parent="1" source="feature-store" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="tft-prep">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="750" y="470" />
-              <mxPoint x="100" y="470" />
+              <mxPoint x="180" y="140" />
+              <mxPoint x="180" y="140" />
+            </Array>
+            <mxPoint x="250" y="135" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="main2" edge="1" parent="1" source="feature-store" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="lgbm-prep">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="140" />
+              <mxPoint x="190" y="330" />
             </Array>
           </mxGeometry>
         </mxCell>
-        
+        <mxCell id="main3" edge="1" parent="1" source="tft-val" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="mlflow">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="125" />
+              <mxPoint x="590" y="125" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="main4" edge="1" parent="1" source="lgbm-val" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="mlflow">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="630" y="330" />
+              <mxPoint x="630" y="125" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="main5" edge="1" parent="1" source="mlflow" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="docker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="main6" edge="1" parent="1" source="evidently" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" target="trigger-drift">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="750" y="470" />
+              <mxPoint x="210" y="470" />
+              <mxPoint x="210" y="345" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
 </mxfile>
-
