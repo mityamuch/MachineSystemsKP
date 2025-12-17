@@ -1,0 +1,109 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 OPR/124.0.0.0 (Edition ASUS)" version="29.2.7">
+  <diagram name="Data Pipeline" id="data-pipeline">
+    <mxGraphModel dx="1528" dy="570" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" value="Архитектура Data Pipeline" vertex="1">
+          <mxGeometry height="30" width="400" x="400" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="sources-group" parent="1" style="swimlane;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" value="Источники данных" vertex="1">
+          <mxGeometry height="250" width="180" x="40" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rider-events" parent="sources-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="📱 Trip Events&#xa;(ride_request,&#xa;ride_completed,&#xa;ride_cancelled)" vertex="1">
+          <mxGeometry height="60" width="150" x="15" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="driver-events" parent="sources-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="🚗 Driver Events&#xa;(driver_online,&#xa;driver_location,&#xa;trip_started)" vertex="1">
+          <mxGeometry height="60" width="150" x="15" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="external-data" parent="sources-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="🌐 External APIs&#xa;(Weather, Events,&#xa;Holidays)" vertex="1">
+          <mxGeometry height="55" width="150" x="15" y="175" as="geometry" />
+        </mxCell>
+        <mxCell id="kafka-group" parent="1" style="swimlane;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" value="Event Streaming" vertex="1">
+          <mxGeometry height="250" width="160" x="280" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kafka" parent="kafka-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" value="Apache Kafka" vertex="1">
+          <mxGeometry height="40" width="120" x="20" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="topic1" parent="kafka-group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="topic:&#xa;trip_events" vertex="1">
+          <mxGeometry height="40" width="120" x="20" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="topic2" parent="kafka-group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="topic:&#xa;driver_events" vertex="1">
+          <mxGeometry height="40" width="120" x="20" y="135" as="geometry" />
+        </mxCell>
+        <mxCell id="topic3" parent="kafka-group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="topic:&#xa;external_data" vertex="1">
+          <mxGeometry height="40" width="120" x="20" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="stream-group" parent="1" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Stream Processing" vertex="1">
+          <mxGeometry height="160" width="180" x="500" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="flink" parent="stream-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Apache Flink" vertex="1">
+          <mxGeometry height="35" width="130" x="25" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="flink-tasks" parent="stream-group" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=10;" value="• demand_count (5 мин)&#xa;• supply_count (5 мин)&#xa;• gap = demand - supply&#xa;• ETA calculation" vertex="1">
+          <mxGeometry height="70" width="140" x="25" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="batch-group" parent="1" style="swimlane;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="Batch Processing (Weekly)" vertex="1">
+          <mxGeometry height="160" width="180" x="500" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="spark" parent="batch-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="Apache Spark" vertex="1">
+          <mxGeometry height="35" width="130" x="25" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="spark-tasks" parent="batch-group" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=10;" value="• Формирование выборок&#xa;• Сезонные паттерны&#xa;• Аугментация данных&#xa;• Join с таргетом" vertex="1">
+          <mxGeometry height="70" width="140" x="25" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="fs-group" parent="1" style="swimlane;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Feature Store" vertex="1">
+          <mxGeometry height="300" width="200" x="740" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="redis" parent="fs-group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#f8cecc;strokeColor=#b85450;" value="🔴 Redis (Online)&#xa;TTL: 30 сек&#xa;Latency: &lt; 10 мс" vertex="1">
+          <mxGeometry height="60" width="80" x="15" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" parent="fs-group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="📦 S3 + Parquet&#xa;(Offline)&#xa;90 дней истории" vertex="1">
+          <mxGeometry height="60" width="80" x="105" y="162.5" as="geometry" />
+        </mxCell>
+        <mxCell id="great-exp" parent="fs-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Great Expectations&#xa;(Data Quality)" vertex="1">
+          <mxGeometry height="40" width="130" x="35" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="output-group" parent="1" style="swimlane;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="Выход" vertex="1">
+          <mxGeometry height="260" width="140" x="1000" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="to-inference" parent="output-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="➡️ Inference&#xa;Pipeline&#xa;(Online Features)" vertex="1">
+          <mxGeometry height="60" width="110" x="15" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="to-training" parent="output-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="➡️ Training&#xa;Pipeline&#xa;(Offline Features)" vertex="1">
+          <mxGeometry height="60" width="110" x="15" y="142.5" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" edge="1" parent="1" source="rider-events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="kafka">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" edge="1" parent="1" source="driver-events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="kafka">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" edge="1" parent="1" source="external-data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="kafka">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" edge="1" parent="1" source="topic2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="flink">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" edge="1" parent="1" source="topic1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" target="spark">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a6" edge="1" parent="1" source="flink" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="redis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a7" edge="1" parent="1" source="spark" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" target="s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a8" edge="1" parent="1" source="redis" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" target="to-inference">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a9" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" target="to-training">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" parent="1" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=middle;fontSize=10;rounded=1;" value="─── Real-time поток&#xa;- - - Batch поток" vertex="1">
+          <mxGeometry height="40" width="130" x="40" y="340" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

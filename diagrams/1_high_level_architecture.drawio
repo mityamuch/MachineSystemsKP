@@ -1,0 +1,125 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="Mozilla/5.0" version="22.1.0" type="device">
+  <diagram name="High-Level Architecture" id="high-level">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Высокоуровневая архитектура системы динамического ценообразования" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="600" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- User Apps Section -->
+        <mxCell id="apps-group" value="Клиентские приложения" style="swimlane;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="rider-app" value="📱 Rider App&#xa;(Пассажир)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="apps-group">
+          <mxGeometry x="20" y="35" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="driver-app" value="📱 Driver App&#xa;(Водитель)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="apps-group">
+          <mxGeometry x="20" y="110" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- API Gateway -->
+        <mxCell id="api-gateway" value="API Gateway&#xa;(Rate Limiting, Auth)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="120" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Kafka -->
+        <mxCell id="kafka" value="Apache Kafka&#xa;(Event Streaming)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="220" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Real-time Inference Section -->
+        <mxCell id="inference-group" value="Real-time Inference (Kubernetes)" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="70" width="280" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="feature-service" value="Feature Service&#xa;(Redis)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="inference-group">
+          <mxGeometry x="20" y="35" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tft-model" value="TFT Model&#xa;(Прогноз 5-15 мин)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="inference-group">
+          <mxGeometry x="150" y="35" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lgbm-model" value="LightGBM&#xa;(Real-time коррекция)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="inference-group">
+          <mxGeometry x="85" y="100" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pricing-service" value="Pricing Service&#xa;(Surge → Цена)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="inference-group">
+          <mxGeometry x="85" y="165" width="110" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Output Systems -->
+        <mxCell id="output-group" value="Выходные системы" style="swimlane;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="70" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="response" value="📲 Response&#xa;(Цена поездки)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="output-group">
+          <mxGeometry x="20" y="35" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="result-db" value="PostgreSQL&#xa;(История прогнозов)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="output-group">
+          <mxGeometry x="25" y="100" width="110" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Offline Training Section -->
+        <mxCell id="training-group" value="Offline Training" style="swimlane;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="340" width="280" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="feature-store" value="Feature Store&#xa;(S3 + Parquet)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="training-group">
+          <mxGeometry x="20" y="40" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="training-pipeline" value="Training Pipeline&#xa;(TFT + LightGBM)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="training-group">
+          <mxGeometry x="20" y="100" width="100" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="mlflow" value="MLflow&#xa;(Model Registry)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="training-group">
+          <mxGeometry x="150" y="40" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="evidently" value="Evidently AI&#xa;(Drift Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="training-group">
+          <mxGeometry x="150" y="100" width="110" height="45" as="geometry" />
+        </mxCell>
+        
+        <!-- Monitoring Section -->
+        <mxCell id="monitoring-group" value="Мониторинг" style="swimlane;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="340" width="160" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="prometheus" value="Prometheus&#xa;(Метрики)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="monitoring-group">
+          <mxGeometry x="20" y="35" width="120" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="grafana" value="Grafana&#xa;(Дашборды, Алерты)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="monitoring-group">
+          <mxGeometry x="20" y="95" width="120" height="45" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrows -->
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="rider-app" target="api-gateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="driver-app" target="api-gateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="api-gateway" target="kafka">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" edge="1" parent="1" source="kafka" target="feature-store">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="api-gateway" target="feature-service">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="pricing-service" target="response">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" edge="1" parent="1" source="mlflow" target="lgbm-model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" edge="1" parent="1" source="pricing-service" target="prometheus">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="─── Синхронный поток&#xa;- - - Асинхронный поток" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+
